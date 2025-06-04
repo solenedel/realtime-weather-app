@@ -1,16 +1,19 @@
 // import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// import pages needed for react router
+import About from './pages/About';
+import Home from './pages/Home';
 import './App.css';
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <h1 className="text-4xl font-bold">Real time weather app</h1>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
   );
 }
 
