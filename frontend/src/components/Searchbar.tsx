@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Searchbar = () => {
+interface WeatherDataForDisplay {
+  city: string;
+  humidity: string;
+  temperature: string;
+  weather_code: string;
+  wind: string;
+  time: string;
+}
+
+interface SearchbarProps {
+  setWeatherData: React.Dispatch<React.SetStateAction<WeatherDataForDisplay>>;
+}
+
+const Searchbar = ({ setWeatherData }: SearchbarProps) => {
   const [city, setCity] = useState('');
 
   // reset city state when component mounts
@@ -26,10 +39,9 @@ const Searchbar = () => {
 
     // if success, clear city state and show weather display
     if (response.status === 200) {
+      setWeatherData(response.data);
       setCity('');
     }
-
-    // if error, show error message
   };
 
   return (
