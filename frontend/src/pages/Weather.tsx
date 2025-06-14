@@ -1,8 +1,11 @@
+import Searchbar from '../components/Searchbar';
+
 const Weather = () => {
   return (
-    <div className="about-page">
+    <div>
       <h1>Weather page</h1>
       <p>this is the weather page</p>
+      <Searchbar />
     </div>
   );
 };
