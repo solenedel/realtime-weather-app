@@ -35,7 +35,6 @@ const getWeatherData = async (latitude: number, longitude: number) => {
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code`
   );
   const weatherData = response.data;
-  console.log('WEATHER DATA 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥', weatherData);
   return weatherData;
 };
 
@@ -45,7 +44,6 @@ const processWeatherData = (weatherData: RawWeatherData, city: string) => {
   const { temperature_2m, relative_humidity_2m, weather_code } = current;
 
   // get weather from weather code
-
   const weather = weatherCodes[weather_code];
 
   return {
@@ -77,7 +75,6 @@ const getWeather: RequestHandler = async (req, res) => {
       coordinates.latitude,
       coordinates.longitude
     );
-    console.log('WEATHER DATA in getWeather', weatherData);
 
     // 4. process the data for front end display
     const processedData = processWeatherData(weatherData, city);

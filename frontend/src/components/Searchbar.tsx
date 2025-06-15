@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-interface WeatherDataForDisplay {
-  city: string;
-  humidity: string;
-  temperature: string;
-  weather_code: string;
-  wind: string;
-  time: string;
-}
+import type { DisplayedWeather } from '../types/DisplayedWeather';
 
 interface SearchbarProps {
-  setWeatherData: React.Dispatch<React.SetStateAction<WeatherDataForDisplay>>;
+  setWeatherData: React.Dispatch<React.SetStateAction<DisplayedWeather>>;
 }
 
 const Searchbar = ({ setWeatherData }: SearchbarProps) => {
@@ -29,13 +21,9 @@ const Searchbar = ({ setWeatherData }: SearchbarProps) => {
 
   // call weather api to get weather data
   const confirmCitySearch = async () => {
-    console.log('city ====>', city);
-    // call the api to get the weather data
-
     const response = await axios.get(
       `http://localhost:3000/api/weather/${city}`
     );
-    console.log('data ====>', response.data);
 
     // if success, clear city state and show weather display
     if (response.status === 200) {
