@@ -12,6 +12,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import weatherRoutes from './routes/weather';
+import webcamRoutes from './routes/webcam';
 
 // load environment variables
 dotenv.config();
@@ -31,6 +32,9 @@ app.use((req, res, next) => {
 
 // Add weather routes
 app.use('/api', weatherRoutes);
+
+// Add webcam routes
+app.use('/api', webcamRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
