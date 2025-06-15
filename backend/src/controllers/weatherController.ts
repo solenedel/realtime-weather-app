@@ -89,7 +89,6 @@ const getWeather: RequestHandler = async (req, res) => {
 
     // 4. process the data for front end display
     const processedData = processWeatherData(weatherData, city);
-    console.log('PROCESSED WEATHER DATA🔥🔥🔥🔥🔥🔥🔥', processedData);
 
     // 5. Send response
     res.json(processedData);
