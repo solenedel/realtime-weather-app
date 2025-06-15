@@ -10,19 +10,29 @@ import type { DisplayedWeather } from '../types/DisplayedWeather';
 // review use memo and useeffect cleanup
 // review hooks
 // caching (not local storage tho)
+// update weather every hour (?)
+// web sockets ???
+// get units
+// ------------------------------------------------------------
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState<DisplayedWeather>({
     city: '',
-    humidity: '',
-    temperature: '',
-    weather: '',
+    values: {
+      temperature: 0,
+      humidity: 0,
+      weather: '',
+    },
+    units: {
+      temperature: '',
+      humidity: '',
+    },
   });
 
   return (
     <div>
-      <h1>Weather page</h1>
-      <p>this is the weather page</p>
+      <h1>Real time weather</h1>
+
       <Searchbar setWeatherData={setWeatherData} />
       {weatherData.city ? <WeatherDisplay WeatherData={weatherData} /> : null}
     </div>

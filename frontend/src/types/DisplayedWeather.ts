@@ -1,9 +1,18 @@
 // types used in the front end
 
-// corresponds to the processed data structure
-export interface DisplayedWeather {
-  city: string;
+export interface WeatherValues {
+  temperature: number;
+  humidity: number;
+  weather: string;
+}
+
+export interface WeatherUnits {
   temperature: string;
   humidity: string;
-  weather: string;
+}
+
+export interface DisplayedWeather {
+  city: string;
+  values: WeatherValues;
+  units: WeatherUnits;
 }
