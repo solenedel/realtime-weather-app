@@ -11,6 +11,10 @@ interface WeatherDataForDisplay {
   time: string;
 }
 
+// TO DOS
+// implement react context and redux state management
+// video implementation
+
 const Weather = () => {
   const [weatherData, setWeatherData] = useState<WeatherDataForDisplay>({
     city: '',

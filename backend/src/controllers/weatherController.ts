@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import { RequestHandler } from 'express';
 import axios from 'axios';
+import { RawWeatherData } from '../models/Weather';
+
 //RequestHandler is a TypeScript type from Express that provides proper type definitions for Express route handlers. Here's what it does:
 // It ensures your route handler function has the correct parameter types:
 // req: The request object (with proper typing for params, query, body, etc.)
@@ -11,7 +13,9 @@ import axios from 'axios';
 // Either void or Promise<void>
 // This is why we had to fix our error response to not return the response object
 
-// 1. Function to get coordinates from city name
+// -------------- FUNCTIONS -------------------------------------------------------------------
+
+// Get coordinates from city name
 const getCoordinates = async (city: string) => {
   // Call OpenMeteo's Geocoding API
   const response = await axios.get(
@@ -23,18 +27,33 @@ const getCoordinates = async (city: string) => {
   // Return latitude and longitude
 };
 
-// 2. Function to get weather data from coordinates
+// Get weather data from coordinates
 const getWeatherData = async (latitude: number, longitude: number) => {
   // Call OpenMeteo's Weather API
   const response = await axios.get(
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code`
   );
   const weatherData = response.data;
-  console.log('WEATHER DATA', weatherData);
+  console.log('WEATHER DATA 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥', weatherData);
   return weatherData;
 };
 
-// 3. Main controller function that combines both
+// Process the weather data for front end
+const processWeatherData = (weatherData: RawWeatherData, city: string) => {
+  const { current } = weatherData;
+  const { temperature_2m, relative_humidity_2m, weather_code } = current;
+
+  return {
+    city: city,
+    temperature: temperature_2m,
+    humidity: relative_humidity_2m,
+    weather_code: weather_code,
+  };
+};
+
+// -------------- CONTROLLER FUNCTIONS -------------------------------------------------------------------
+
+//  Main controller function that combines other functions
 const getWeather: RequestHandler = async (req, res) => {
   try {
     const city = req.params.city;
@@ -47,14 +66,20 @@ const getWeather: RequestHandler = async (req, res) => {
     // 2. Get coordinates
     const coordinates = await getCoordinates(city);
     console.log(coordinates);
+
     // 3. Get weather data
     const weatherData = await getWeatherData(
       coordinates.latitude,
       coordinates.longitude
     );
     console.log('WEATHER DATA in getWeather', weatherData);
-    // 4. Send response
-    res.json(weatherData);
+
+    // 4. process the data for front end display
+    const processedData = processWeatherData(weatherData, city);
+    console.log('PROCESSED WEATHER DATA🔥🔥🔥🔥🔥🔥🔥', processedData);
+
+    // 5. Send response
+    res.json(processedData);
   } catch (error) {
     // Handle errors
     console.error('Error fetching weather data:', error);
