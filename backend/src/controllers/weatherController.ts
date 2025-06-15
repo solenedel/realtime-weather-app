@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { RequestHandler } from 'express';
 import axios from 'axios';
 import { RawWeatherData } from '../models/Weather';
+import { weatherCodes } from '../utils/weatherCodes';
 
 //RequestHandler is a TypeScript type from Express that provides proper type definitions for Express route handlers. Here's what it does:
 // It ensures your route handler function has the correct parameter types:
@@ -43,11 +44,15 @@ const processWeatherData = (weatherData: RawWeatherData, city: string) => {
   const { current } = weatherData;
   const { temperature_2m, relative_humidity_2m, weather_code } = current;
 
+  // get weather from weather code
+
+  const weather = weatherCodes[weather_code];
+
   return {
     city: city,
     temperature: temperature_2m,
     humidity: relative_humidity_2m,
-    weather_code: weather_code,
+    weather: weather,
   };
 };
 
