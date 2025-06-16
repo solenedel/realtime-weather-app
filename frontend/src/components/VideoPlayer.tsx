@@ -4,6 +4,13 @@ function VideoPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // change video speed
+  const setPlaybackRate = (rate: number) => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = rate;
+    }
+  };
+
   // capture the current video frame on the canvas
   const captureFrame = () => {
     const video = videoRef.current;
@@ -29,10 +36,18 @@ function VideoPlayer() {
 
   return (
     <div className="flex flex-col items-center p-4">
-      <h1>Video Player</h1>
+      <div className="w-full max-w-xl">
+        <button onClick={() => setPlaybackRate(0.5)}>Slow down</button>
+        <button onClick={() => setPlaybackRate(2)}>Speed up</button>
+        <button onClick={() => setPlaybackRate(1)}>Normal speed</button>
+      </div>
       <video
         ref={videoRef}
-        className="rounded-lg max-w-xl shadow-lg w-full"
+        autoPlay
+        loop
+        className="rounded-lg shadow-lg w-full"
+        width={640}
+        height={360}
         controls>
         <source
           src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"

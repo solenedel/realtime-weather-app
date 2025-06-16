@@ -32,7 +32,6 @@ const Weather = () => {
 
   return (
     <div>
-      <h1>Real time weather</h1>
       <VideoPlayer />
       <Searchbar setWeatherData={setWeatherData} />
       {weatherData.city ? <WeatherDisplay WeatherData={weatherData} /> : null}
