@@ -2,7 +2,8 @@ import Searchbar from '../components/Searchbar';
 import WeatherDisplay from '../components/WeatherDisplay';
 import { useState } from 'react';
 import type { DisplayedWeather } from '../types/DisplayedWeather';
-import VideoPlayer from '../components/VideoPlayer';
+// import VideoPlayer from '../components/VideoPlayer';
+import ThemeToggle from '../components/ThemeToggle';
 
 // TO DOS ------------------------------------------------------------
 // implement react context and redux state management
@@ -32,7 +33,8 @@ const Weather = () => {
 
   return (
     <div>
-      <VideoPlayer />
+      {/* <VideoPlayer /> */}
+      <ThemeToggle />
       <Searchbar setWeatherData={setWeatherData} />
       {weatherData.city ? <WeatherDisplay WeatherData={weatherData} /> : null}
     </div>

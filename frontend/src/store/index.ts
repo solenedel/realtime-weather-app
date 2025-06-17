@@ -5,11 +5,11 @@
 // 3. Exports TypeScript types we'll need later
 
 import { configureStore } from '@reduxjs/toolkit';
-// import themeReducer from './slices/themeSlice';
+import themeReducer from './slices/themeSlice';
 
 export const store = configureStore({
   reducer: {
-    // theme: themeReducer
+    theme: themeReducer,
   },
 });
 
